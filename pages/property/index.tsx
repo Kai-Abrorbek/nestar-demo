@@ -1,5 +1,7 @@
+import withLayoutBasic from "@/libs/components/layout/LayoutBasic";
+
 const PropertyList = () => {
   return <h1>Property LIst</h1>;
 };
 
-export default PropertyList;
+export default withLayoutBasic(PropertyList);

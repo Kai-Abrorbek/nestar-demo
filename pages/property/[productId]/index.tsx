@@ -1,9 +1,8 @@
-import { useRouter } from "next/router";
+import withLayoutBasic from "@/libs/components/layout/LayoutBasic";
+import { Container, Stack } from "@mui/material";
 
 const PropertyDetail = () => {
-  const router = useRouter();
-  const { productId } = router.query;
-  return <h1>Property Detail {productId}</h1>;
+  return <Container>Property Detatil</Container>;
 };
 
-export default PropertyDetail;
+export default withLayoutBasic(PropertyDetail);
