@@ -13,7 +13,6 @@ const withLayoutMain = (Component: any) => {
           <Stack id={"main"}>
             <Component {...props} />
           </Stack>
-
           <Stack sx={{ background: "#a1887f" }}>Footer</Stack>
         </Stack>
       </>
