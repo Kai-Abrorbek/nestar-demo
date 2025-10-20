@@ -1,170 +1,324 @@
-import { Box, Button, Stack } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import Checkbox from "@mui/material/Checkbox";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import {
+    Button,
+    Checkbox,
+    FormControl,
+    IconButton,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    Stack,
+    Tooltip,
+    Typography,
+} from "@mui/material";
 import { useState } from "react";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import propertySquare from "../config";
 
 const Filter = () => {
-  const [age, setAge] = useState("");
+    const [searchText, setSearchText] = useState<string>("");
+    const [showMore, setShowMore] = useState<boolean>(false);
+    const [squareRange, setSquareRange] = useState({ min: 0, max: 500 });
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
-  };
-  return (
-    <Stack className="filter-box">
-      <div>
-        <h2>Find Your Home</h2>
-        <Stack className="search-box">
-          <Box className="input-box">
-            <SearchIcon />
-            <input type="input" placeholder="What are you looking?" />
-          </Box>
-          <RefreshIcon />
+    const [propertyPrice, setPropertyPrice] = useState({
+        start: 0,
+        end: 250000,
+    });
+
+    return (
+        <Stack className={"filter-main"}>
+            <Stack className={"find-your-home"} mb={"40px"}>
+                <Typography className={"title-main"}> Find Your Home</Typography>
+                <Stack className={"input-box"}>
+                    <OutlinedInput
+                        value={searchText}
+                        type={"text"}
+                        className={"search-input"}
+                        placeholder={"What are you looking?"}
+                        onChange={(e: any) => setSearchText(e.target.value)}
+                    />
+                    <img src={"/img/icons/search_icon.png"} alt="" />
+                    <Tooltip title="Reset">
+                        <IconButton>
+                            <RefreshIcon />
+                        </IconButton>
+                    </Tooltip>
+                </Stack>
+            </Stack>
+
+            <Stack className={"find-your-home"} mb={"30px"}>
+                <p className={"title"} style={{ textShadow: "0px 3px 4px #b9b9b9" }}>
+                    Location
+                </p>
+                <Stack
+                    className={"property-location"}
+                    style={{ height: showMore ? "253px" : "115px" }}
+                >
+                    {["SEUL", "BUSAN", "DAEGU"].map((location: string) => {
+                        return (
+                            <Stack className={"input-box"} key={location}>
+                                <Checkbox
+                                    id={location}
+                                    className={"property-checkbox"}
+                                    color="default"
+                                    size="small"
+                                    value={location}
+                                    checked={false}
+                                />
+                                <label htmlFor={location} style={{ cursor: "pointer" }}>
+                                    <Typography className={"property-type"}>
+                                        {location}
+                                    </Typography>
+                                </label>
+                            </Stack>
+                        );
+                    })}
+                </Stack>
+            </Stack>
+
+            <Stack className={"find-your-home"} mb={"30px"}>
+                <Typography className={"title"}>Property Type </Typography>
+                {["APARTMENT", "HOUSE", "VILLA"].map((type: string) => (
+                    <Stack className={"input-box"} key={type}>
+                        <Checkbox
+                            id={type}
+                            className={"property-checkbox"}
+                            color="default"
+                            size="small"
+                            value={type}
+                        />
+                        <label style={{ cursor: "pointer" }}>
+                            <Typography className="property-type">{type}</Typography>
+                        </label>
+                    </Stack>
+                ))}
+            </Stack>
+
+            <Stack className={"find-your-home"} mb={"30px"}>
+                <Typography className={"title"}>Rooms</Typography>
+                <Stack className={"button-group"}>
+                    <Button
+                        sx={{
+                            borderRadius: "12px 0 0 12px",
+                            border: "1px solid #b9b9b9",
+                        }}
+                    >
+                        Any
+                    </Button>
+
+                    <Button
+                        sx={{
+                            borderRadius: 0,
+                            border: "1px solid #b9b9b9",
+                        }}
+                    >
+                        1
+                    </Button>
+
+                    <Button
+                        sx={{
+                            borderRadius: 0,
+                            border: "2px solid #181a20",
+                        }}
+                    >
+                        2
+                    </Button>
+
+                    <Button
+                        sx={{
+                            borderRadius: 0,
+                            border: "1px solid #b9b9b9",
+                        }}
+                    >
+                        3
+                    </Button>
+
+                    <Button
+                        sx={{
+                            borderRadius: 0,
+                            border: "2px solid #181a20",
+                        }}
+                    >
+                        4
+                    </Button>
+
+                    <Button
+                        sx={{
+                            borderRadius: " 0 12px 12px 0 ",
+                            border: "1px solid #b9b9b9",
+                        }}
+                    >
+                        5+
+                    </Button>
+                </Stack>
+            </Stack>
+
+            <Stack className={"find-your-home"} mb={"30px"}>
+                <Typography className={"title"}>Bedrooms</Typography>
+                <Stack className={"button-group"}>
+                    <Button
+                        sx={{
+                            borderRadius: "12px 0 0 12px",
+                            border: "1px solid #b9b9b9",
+                        }}
+                    >
+                        Any
+                    </Button>
+
+                    <Button
+                        sx={{
+                            borderRadius: 0,
+                            border: "1px solid #b9b9b9",
+                        }}
+                    >
+                        1
+                    </Button>
+
+                    <Button
+                        sx={{
+                            borderRadius: 0,
+                            border: "2px solid #181A20",
+                        }}
+                    >
+                        2
+                    </Button>
+
+                    <Button
+                        sx={{
+                            borderRadius: 0,
+                            border: "1px solid #b9b9b9",
+                        }}
+                    >
+                        3
+                    </Button>
+
+                    <Button
+                        sx={{
+                            borderRadius: 0,
+                            border: "1px solid #b9b9b9",
+                        }}
+                    >
+                        4
+                    </Button>
+                    <Button
+                        sx={{
+                            borderRadius: "0 12px  12px 0",
+                            border: "1px solid #b9b9b9",
+                        }}
+                    >
+                        5+
+                    </Button>
+                </Stack>
+            </Stack>
+
+            <Stack className={"find-your-home"} mb={"30px"}>
+                <Typography className={"title"}>Options</Typography>
+
+                <Stack className={" input-box"}>
+                    <Checkbox
+                        id={"Barter"}
+                        className="property-checkbox"
+                        color="default"
+                        size="small"
+                        value={"propertyBarter"}
+                    />
+                    <label htmlFor={"Barter"} style={{ cursor: "pointer" }}>
+                        <Typography className="propert-type">Barter</Typography>{" "}
+                    </label>
+                </Stack>
+
+                <Stack className={"input-box"}>
+                    <Checkbox
+                        id={"Rent"}
+                        className="property-checkbox"
+                        color="default"
+                        size="small"
+                        value={"propertyRent"}
+                    />
+                    <label htmlFor={"Rent"} style={{ cursor: "pointer" }}>
+                        <Typography className="propert-type">Rent</Typography>{" "}
+                    </label>
+                </Stack>
+            </Stack>
+
+            <Stack className={"find-your-home"} mb={"30px"}>
+                <Typography className={"title"}>Square meter</Typography>
+                <Stack className="square-year-input">
+                    {/* MIN */}
+                    <FormControl sx={{ width: "100%" }}>
+                        <InputLabel id="square-min-label">Min</InputLabel>
+                        <Select
+                            labelId="square-min-label"
+                            id="square-min"
+                            value={squareRange.min}
+                            label="Min"
+                            onChange={(e) =>
+                                setSquareRange({ ...squareRange, min: Number(e.target.value) })
+                            }
+                        >
+                            {propertySquare.map((square) => (
+                                <MenuItem value={square} key={square}>
+                                    {square}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                    <div className="central-divider"></div>
+
+                    {/* MAX */}
+                    <FormControl sx={{ width: "100%" }}>
+                        <InputLabel id="square-max-label">Max</InputLabel>
+                        <Select
+                            labelId="square-max-label"
+                            id="square-max"
+                            value={squareRange.max}
+                            label="Max"
+                            onChange={(e) =>
+                                setSquareRange({ ...squareRange, max: Number(e.target.value) })
+                            }
+                        >
+                            {propertySquare.map((square) => (
+                                <MenuItem value={square} key={square}>
+                                    {square}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Stack>
+            </Stack>
+
+            <Stack className={"find-your-home"} mb={"30px"}>
+                <Typography className={"title"}>Price Range </Typography>
+                <Stack className="square-year-input">
+                    <input
+                        type="number"
+                        placeholder="$ min"
+                        min={0}
+                        value={propertyPrice?.start ?? 0}
+                        onChange={(e: any) => {
+                            console.log("value:", e.target.value);
+                            if (e.target.value >= 0) {
+                                setPropertyPrice({ ...propertyPrice, start: e.target.value });
+                            }
+                        }}
+                    />
+                    <div className="central-divider"></div>
+                    <input
+                        type="number"
+                        placeholder="$ max"
+                        value={propertyPrice?.end ?? 0}
+                        onChange={(e: any) => {
+                            console.log("value: ", e.target.value);
+                            if (e.target.value >= 0) {
+                                setPropertyPrice({ ...propertyPrice, end: e.target.value });
+                            }
+                        }}
+                    />
+                </Stack>
+            </Stack>
         </Stack>
-      </div>
-      <Stack className="location">
-        <h3>Location</h3>
-        <Stack className="checkbox-con">
-          <Stack className="checkbox-box">
-            <Checkbox />
-            <span>SEOUL</span>
-          </Stack>
-          <Stack className="checkbox-box">
-            <Checkbox />
-            <span>BUSAN</span>
-          </Stack>
-          <Stack className="checkbox-box">
-            <Checkbox />
-            <span>DAEGU</span>
-          </Stack>
-        </Stack>
-      </Stack>
-      <Stack className="property-type">
-        <h3>Property Type</h3>
-        <Stack className="checkbox-con">
-          <Stack className="checkbox-box">
-            <Checkbox />
-            <span>APARTMENT</span>
-          </Stack>
-          <Stack className="checkbox-box">
-            <Checkbox />
-            <span>HAUSE</span>
-          </Stack>
-          <Stack className="checkbox-box">
-            <Checkbox />
-            <span>VILLA</span>
-          </Stack>
-        </Stack>
-      </Stack>
-      <Stack className="rooms">
-        <h3>Rooms</h3>
-        <Stack className="buttons">
-          <Button>
-            <span>any</span>
-          </Button>
-          <Button>
-            <span>1</span>
-          </Button>
-          <Button>
-            <span>2</span>
-          </Button>
-          <Button>
-            <span>3</span>
-          </Button>
-          <Button>
-            <span>4</span>
-          </Button>
-          <Button>
-            <span>5+</span>
-          </Button>
-        </Stack>
-      </Stack>
-      <Stack className="bed-rooms">
-        <h3>BedRooms</h3>
-        <Stack className="buttons">
-          <Button>
-            <span>any</span>
-          </Button>
-          <Button>
-            <span>1</span>
-          </Button>
-          <Button>
-            <span>2</span>
-          </Button>
-          <Button>
-            <span>3</span>
-          </Button>
-          <Button>
-            <span>4</span>
-          </Button>
-          <Button>
-            <span>5+</span>
-          </Button>
-        </Stack>
-      </Stack>
-      <Stack className="options">
-        <h3>Options</h3>
-        <Stack className="checkbox-con">
-          <Stack className="checkbox-box">
-            <Checkbox />
-            <span>APARTMENT</span>
-          </Stack>
-          <Stack className="checkbox-box">
-            <Checkbox />
-            <span>HAUSE</span>
-          </Stack>
-        </Stack>
-      </Stack>
-      <Stack className="square-meter">
-        <h3>Square meter</h3>
-        <Stack className="select-box">
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Min</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              label="Age"
-              onChange={handleChange}
-            >
-              <MenuItem value={0}>0</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
-              <MenuItem value={100}>100</MenuItem>
-              <MenuItem value={150}>150</MenuItem>
-              <MenuItem value={200}>200</MenuItem>
-            </Select>
-          </FormControl>
-          <span>ㅡ</span>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Max</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={age}
-              label="Age"
-              onChange={handleChange}
-            >
-              <MenuItem value={500}>500</MenuItem>
-              <MenuItem value={400}>400</MenuItem>
-              <MenuItem value={300}>300</MenuItem>
-            </Select>
-          </FormControl>
-        </Stack>
-      </Stack>
-      <Stack className="price-range">
-        <h3>Price Range</h3>
-        <Stack className="input-box">
-          <input type="number" placeholder="0" />
-          <span>ㅡ</span>
-          <input type="number" placeholder="250000" />
-        </Stack>
-      </Stack>
-    </Stack>
-  );
+    );
 };
 
 export default Filter;
